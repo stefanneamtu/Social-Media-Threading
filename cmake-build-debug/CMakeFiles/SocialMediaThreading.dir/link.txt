@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2020.2.1\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\SocialMediaThreading.dir/objects.a
+C:\PROGRA~1\CODEBL~1\MinGW\bin\ar.exe cr CMakeFiles\SocialMediaThreading.dir/objects.a @CMakeFiles\SocialMediaThreading.dir\objects1.rsp
+C:\PROGRA~1\CODEBL~1\MinGW\bin\G__~1.EXE -g   -Wl,--whole-archive CMakeFiles\SocialMediaThreading.dir/objects.a -Wl,--no-whole-archive  -o SocialMediaThreading.exe -Wl,--out-implib,libSocialMediaThreading.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\SocialMediaThreading.dir\linklibs.rsp
