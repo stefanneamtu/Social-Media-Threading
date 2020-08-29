@@ -1,0 +1,39 @@
+#ifndef SOCIALMEDIATHREADING_USER_H
+#define SOCIALMEDIATHREADING_USER_H
+
+#include <iostream>
+#include <thread>
+#include <atomic>
+#include <vector>
+#include <algorithm>
+#include <bitset>
+
+class Backlog;
+class SocialNetwork;
+
+class User {
+  private:
+    static std::atomic_int next_id;
+    std::thread thr;
+    int id;
+    std::string name;
+    std::bitset<10000> sent;
+
+  public:
+    User();
+    User(std::string name);
+    User(const User &user);
+    User& operator=(const User &user);
+    std::string get_name();
+    int get_id() const;
+    int hash_code() const;
+    friend std::ostream& operator<<(std::ostream& os, User& user);
+    bool operator==(void *other);
+    bool operator==(User &other);
+    bool operator<(const User &other) const;
+    void run(SocialNetwork *social_network, Backlog *edits_backlog);
+    void start(SocialNetwork *social_network, Backlog *edits_backlog);
+    void join();
+};
+
+#endif //SOCIALMEDIATHREADING_USER_H

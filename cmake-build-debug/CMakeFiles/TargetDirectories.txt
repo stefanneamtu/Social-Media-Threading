@@ -1,3 +1,0 @@
-C:/Users/stefa/CLionProjects/SocialMediaThreading/cmake-build-debug/CMakeFiles/SocialMediaThreading.dir
-C:/Users/stefa/CLionProjects/SocialMediaThreading/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/stefa/CLionProjects/SocialMediaThreading/cmake-build-debug/CMakeFiles/rebuild_cache.dir
