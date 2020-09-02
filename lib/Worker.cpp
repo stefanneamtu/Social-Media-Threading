@@ -1,5 +1,8 @@
 #include "Worker.h"
 
+Worker::Worker(){
+}
+
 Worker::Worker(Backlog backlog) {
   this->backlog = backlog;
   this->interrupted = false;
@@ -23,8 +26,16 @@ void Worker::interrupt() {
 
 void Worker::process(Task task) {
   if (task.get_command() == POST) {
-    task.get_board().add_message(task.get_message());
-  } else if (!task.get_board().delete_message(task.get_message())) {
+    task.get_board()->add_message(task.get_message());
+  } else if (!task.get_board()->delete_message(task.get_message())) {
     backlog.add(Task(task.get_command(), task.get_message(), task.get_board()));
   }
+}
+
+void Worker::start() {
+  thr = std::thread(&Worker::run, this);
+}
+
+void Worker::join() {
+  thr.join();
 }

@@ -1,7 +1,14 @@
 #include "SocialNetwork.h"
 
-void SocialNetwork::register_user(User user, Board board) {
+SocialNetwork::SocialNetwork() {}
+
+SocialNetwork::SocialNetwork(Backlog backlog) {
+  this->backlog = backlog;
+}
+
+void SocialNetwork::register_user(User user, Board *board) {
   boards[user.hash_code()] = board;
+  users.push_back(user);
 }
 
 Message SocialNetwork::post_message(User sender, std::set<User> recipients, std::string text, Backlog *edits_backlog) {
@@ -28,17 +35,15 @@ void SocialNetwork::delete_message(Message message, Backlog *edits_backlog) {
   }
 }
 
-Board SocialNetwork::user_board(User user) {
+Board* SocialNetwork::user_board(User user) {
   return boards[user.hash_code()];
 }
 
-void SocialNetwork::check_user_registered(User user) {
-  if ((boards[user.hash_code()] == NULL)) {
-    throw new std::runtime_error("Sender not registered!");
-  }
+bool SocialNetwork::check_user_registered(User user) {
+  return boards[user.hash_code()] != NULL;
 }
 
-std::vector<Board> SocialNetwork::get_boards() {
+std::vector<Board*> SocialNetwork::get_boards() {
   return boards;
 }
 

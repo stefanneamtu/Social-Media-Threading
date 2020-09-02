@@ -2,7 +2,9 @@
 
 std::atomic_int Task::next_id = 0;
 
-Task::Task(Command command, Message message, Board board) {
+Task::Task(){}
+
+Task::Task(Command command, Message message, Board *board) {
   this->command = command;
   this->message = message;
   this->board = board;
@@ -17,7 +19,7 @@ Message Task::get_message() {
   return message;
 }
 
-Board Task::get_board() {
+Board* Task::get_board() {
   return board;
 }
 
@@ -30,6 +32,7 @@ int Task::hash_code() {
 }
 
 bool Task::operator==(void *other) {
+
   if (this == other) {
     return true;
   }
@@ -40,4 +43,11 @@ bool Task::operator==(void *other) {
   Task *task = (Task*) other;
 
   return id == task->get_id();
+}
+
+bool Task::operator==(Task other) {
+  if (this == &other) {
+    return true;
+  }
+  return id == other.get_id();
 }

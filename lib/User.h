@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <thread>
+#include <pthread.h>
 #include <atomic>
 #include <vector>
 #include <algorithm>
@@ -18,10 +19,12 @@ class User {
     int id;
     std::string name;
     std::bitset<10000> sent;
+    SocialNetwork *social_network;
 
   public:
     User();
     User(std::string name);
+    User(std::string name, SocialNetwork *social_network);
     User(const User &user);
     User& operator=(const User &user);
     std::string get_name();
@@ -35,5 +38,6 @@ class User {
     void start(SocialNetwork *social_network, Backlog *edits_backlog);
     void join();
 };
+
 
 #endif //SOCIALMEDIATHREADING_USER_H

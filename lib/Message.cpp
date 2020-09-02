@@ -2,6 +2,8 @@
 
 std::atomic_int Message::next_id = 0;
 
+Message::Message(){}
+
 Message::Message(User sender, std::set<User> recipients, std::string text) {
   this->sender = sender;
   this->recipients = recipients;
@@ -49,4 +51,12 @@ bool Message::operator==(void *other) {
   Message *message = (Message*) other;
 
   return id == message->get_id();
+}
+
+bool Message::operator==(Message other) {
+  if (this == &other) {
+    return true;
+  }
+
+  return id == other.get_id();
 }

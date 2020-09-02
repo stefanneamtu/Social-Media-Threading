@@ -13,17 +13,19 @@ class User;
 
 class SocialNetwork {
   private:
-    std::vector<Board> boards;
+    Backlog backlog;
+    std::vector<Board*> boards{std::vector<Board*>(1000, NULL)};
     std::vector<User> users;
 
   public:
     SocialNetwork();
-    void register_user(User user, Board board);
+    SocialNetwork(Backlog backlog);
+    void register_user(User user, Board *board);
     Message post_message(User sender, std::set<User> recipients, std::string text, Backlog *edits_backlog);
     void delete_message(Message message, Backlog *edits_backlog);
-    Board user_board(User user);
-    void check_user_registered(User user);
-    std::vector<Board> get_boards();
+    Board* user_board(User user);
+    bool check_user_registered(User user);
+    std::vector<Board*> get_boards();
     std::vector<User> get_users();
 };
 

@@ -3,9 +3,17 @@
 
 std::atomic_int User::next_id = 0;
 
+User::User(){}
+
 User::User(std::string name) {
   this->name = name;
   this->id = next_id.fetch_add(1);
+}
+
+User::User(std::string name, SocialNetwork *social_network) {
+  this->name = name;
+  this->id = next_id.fetch_add(1);
+  this->social_network = social_network;
 }
 
 User::User(const User &user) {
@@ -39,7 +47,7 @@ bool User::operator==(void *other) {
   if (this == other) {
     return true;
   }
-  if (other == nullptr || typeid(this) == typeid(other)) {
+  if (other == nullptr || typeid(this) != typeid(other)) {
     return false;
   }
 
@@ -49,9 +57,10 @@ bool User::operator==(void *other) {
 }
 
 bool User::operator==(User &user) {
-  if (*this == user) {
+  if (this == &user) {
     return true;
   }
+
   if (user == nullptr) {
     return false;
   }
@@ -80,7 +89,7 @@ void User::run(SocialNetwork *social_network, Backlog *edits_backlog) {
     std::string msg = "Message";
     social_network->post_message(*this, picked_users, msg, edits_backlog);
 
-    std::vector<Message> snap = social_network->user_board(*this).get_board_snapshot(); // TODO
+    std::vector<Message> snap = social_network->user_board(*this)->get_board_snapshot(); // TODO
     std::vector<Message> filtered_snap;
     for (Message m : snap) {
       if (m.get_sender().get_id() != this->get_id()) {

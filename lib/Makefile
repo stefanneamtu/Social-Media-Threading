@@ -1,7 +1,7 @@
 CC = g++
-CPPFLAGS = -std=c++17 -Wall -Werror -pedantic 
+CPPFLAGS = -std=c++17 -Wall -Werror -pedantic -g
 LIB = libclasses.a
-LIBOBJS = Backlog.o Board.o Message.o SocialNetwork.o Task.o User.o Worker.o
+LIBOBJS = Backlog.o Board.o Message.o SocialNetwork.o Task.o User.o Worker.o SequentialSet.o
 BUILD = $(LIB)
 
 .PHONY: all clean util
@@ -24,6 +24,8 @@ Task.o: Task.h
 User.o: User.h
 
 Worker.o: Worker.h
+
+SequentialSet.o: SequentialSet.h
 
 clean:
 	rm -f $(wildcard *.o)

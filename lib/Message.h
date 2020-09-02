@@ -28,6 +28,7 @@ class Message {
     int hash_code();
     std :: ostream& operator<<(std::ostream &strm);
     bool operator==(void *other);
+    bool operator==(Message other);
 };
 
 #endif //SOCIALMEDIATHREADING_MESSAGE_H
