@@ -19,11 +19,11 @@ int Board::size() {
   return board.get_size();
 }
 
-std::vector<Message> Board::get_board_snapshot() {
-  std::vector<Message> snap;
+std::set<Message> Board::get_board_snapshot() {
+  std::set<Message> snap;
   Node<Message> *curr = board.get_head()->next;
   while (curr != board.get_tail()) {
-    snap.insert(snap.begin(), curr->elem);
+    snap.insert(curr->elem);
     curr = curr->next;
   }
   return snap;

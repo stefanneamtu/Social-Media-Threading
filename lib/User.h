@@ -34,8 +34,8 @@ class User {
     bool operator==(void *other);
     bool operator==(User &other);
     bool operator<(const User &other) const;
-    void run(SocialNetwork *social_network, Backlog *edits_backlog);
-    void start(SocialNetwork *social_network, Backlog *edits_backlog);
+    void run(SocialNetwork *social_network);
+    void start(SocialNetwork *social_network);
     void join();
 };
 

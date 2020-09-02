@@ -72,7 +72,7 @@ bool User::operator<(const User &other) const {
   return this->get_id() < other.get_id();
 }
 
-void User::run(SocialNetwork *social_network, Backlog *edits_backlog) {
+void User::run(SocialNetwork *social_network) {
   srand(time(NULL));
   while(true) {
     // 10% chance for the user to exit
@@ -87,9 +87,10 @@ void User::run(SocialNetwork *social_network, Backlog *edits_backlog) {
 
     std::set<User> picked_users(users.begin(), users.begin() + picks);
     std::string msg = "Message";
-    social_network->post_message(*this, picked_users, msg, edits_backlog);
+    social_network->post_message(*this, picked_users, msg);
 
-    std::vector<Message> snap = social_network->user_board(*this)->get_board_snapshot(); // TODO
+    std::set<Message> ms = social_network->user_board(*this)->get_board_snapshot();
+    std::vector<Message> snap(ms.begin(), ms.end());
     std::vector<Message> filtered_snap;
     for (Message m : snap) {
       if (m.get_sender().get_id() != this->get_id()) {
@@ -106,15 +107,15 @@ void User::run(SocialNetwork *social_network, Backlog *edits_backlog) {
 
     for (int i = 0; i < picks; ++i) {
       if (!sent[filtered_snap[i].hash_code()]) {
-        social_network->delete_message(filtered_snap[i], edits_backlog); // TODO
+        social_network->delete_message(filtered_snap[i]); // TODO
         sent[filtered_snap[i].hash_code()] = true;
       }
     }
   }
 }
 
-void User::start(SocialNetwork *social_network, Backlog *edits_backlog) {
-  thr = std::thread(&User::run, this, social_network, edits_backlog);
+void User::start(SocialNetwork *social_network) {
+  thr = std::thread(&User::run, this, social_network);
 }
 
 void User::join() {

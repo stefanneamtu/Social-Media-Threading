@@ -24,11 +24,12 @@ class Message {
     User get_sender();
     std::set<User> get_recipients();
     std :: string get_text();
-    int get_id();
-    int hash_code();
+    int get_id() const;
+    int hash_code() const;
     std :: ostream& operator<<(std::ostream &strm);
     bool operator==(void *other);
     bool operator==(Message other);
+    const bool operator<(const Message &other) const;
 };
 
 #endif //SOCIALMEDIATHREADING_MESSAGE_H

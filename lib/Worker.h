@@ -10,13 +10,13 @@
 
 class Worker {
   private:
-    Backlog backlog;
+    Backlog *backlog;
     bool interrupted;
     std::thread thr;
 
   public:
     Worker();
-    Worker(Backlog backlog);
+    Worker(Backlog *backlog);
     void run();
     void interrupt();
     void process(Task next_task);

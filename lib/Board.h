@@ -1,7 +1,7 @@
 #ifndef SOCIALMEDIATHREADING_BOARD_H
 #define SOCIALMEDIATHREADING_BOARD_H
 
-#include <vector>
+#include <set>
 
 #include "SequentialSet.h"
 
@@ -16,7 +16,7 @@ class Board {
     bool add_message(Message message);
     bool delete_message(Message message);
     int size();
-    std::vector<Message> get_board_snapshot();
+    std::set<Message> get_board_snapshot();
     bool operator==(void *other);
     bool operator==(const Board &board);
     bool operator!=(const Board &board);

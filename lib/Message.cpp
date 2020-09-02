@@ -23,11 +23,11 @@ std::string Message::get_text() {
   return text;
 }
 
-int Message::get_id() {
+int Message::get_id() const {
   return id;
 }
 
-int Message::hash_code() {
+int Message::hash_code() const {
   return id;
 }
 
@@ -60,3 +60,9 @@ bool Message::operator==(Message other) {
 
   return id == other.get_id();
 }
+
+const bool Message::operator<(const Message &other) const {
+  return this->id < other.get_id();
+}
+
+

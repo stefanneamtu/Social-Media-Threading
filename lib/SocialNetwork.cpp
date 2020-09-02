@@ -2,8 +2,8 @@
 
 SocialNetwork::SocialNetwork() {}
 
-SocialNetwork::SocialNetwork(Backlog backlog) {
-  this->backlog = backlog;
+SocialNetwork::SocialNetwork(Backlog *backlog) {
+  this->edits_backlog = backlog;
 }
 
 void SocialNetwork::register_user(User user, Board *board) {
@@ -11,7 +11,7 @@ void SocialNetwork::register_user(User user, Board *board) {
   users.push_back(user);
 }
 
-Message SocialNetwork::post_message(User sender, std::set<User> recipients, std::string text, Backlog *edits_backlog) {
+Message SocialNetwork::post_message(User sender, std::set<User> recipients, std::string text) {
   check_user_registered(std::move(sender));
   assert(!recipients.count(sender));
 
@@ -27,7 +27,7 @@ Message SocialNetwork::post_message(User sender, std::set<User> recipients, std:
   return message;
 }
 
-void SocialNetwork::delete_message(Message message, Backlog *edits_backlog) {
+void SocialNetwork::delete_message(Message message) {
   for (long unsigned int i = 0; i < users.size(); ++i) {
     if (message.get_recipients().count(users[i]) || message.get_sender() == users[i]) {
       edits_backlog->add(Task(DELETE, message, boards[i]));
