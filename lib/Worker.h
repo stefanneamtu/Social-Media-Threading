@@ -19,7 +19,7 @@ class Worker {
     Worker(Backlog *backlog);
     void run();
     void interrupt();
-    void process(Task next_task);
+    void process(Task *next_task);
     void start();
     void join();
 };

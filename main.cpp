@@ -42,7 +42,31 @@ void user_tests() {
   }
 }
 
-void worker_tests() {
+void registration_tests() {
+  Backlog backlog;
+  Board board;
+  SocialNetwork social_network(&backlog);
+  User user("Test User", &social_network);
+  User user2("Unregistered User", &social_network);
+
+  social_network.register_user(user, &board);
+
+  bool p = false;
+  std::vector<User> users = social_network.get_users();
+  for (User u : users) {
+    if (u == user) {
+      p = true;
+      break;
+    }
+  }
+
+  if (!p || !social_network.check_user_registered(user) ||
+      *social_network.user_board(user) != board || 
+      social_network.check_user_registered(user2)) {
+    std::cout << "User registration bug!\n";
+    return;
+  }
+  std::cout << "Registration tests passed!\n";
 }
 
 void message_tests() {
@@ -104,34 +128,9 @@ void task_tests() {
   }
 }
 
-void registration_tests() {
-  Backlog backlog;
-  Board board;
-  SocialNetwork social_network(&backlog);
-  User user("Test User", &social_network);
-  User user2("Unregistered User", &social_network);
-
-  social_network.register_user(user, &board);
-
-  bool p = false;
-  std::vector<User> users = social_network.get_users();
-  for (User u : users) {
-    if (u == user) {
-      p = true;
-      break;
-    }
-  }
-
-  if (!p || !social_network.check_user_registered(user) ||
-      *social_network.user_board(user) != board || 
-      social_network.check_user_registered(user2)) {
-    std::cout << "User registration bug!\n";
-    return;
-  }
-  std::cout << "Registration tests passed!\n";
-}
-
 void message_lifecycle_tests() {
+  User::reset_id();
+
   Backlog backlog;
   Board board1;
   Board board2;
@@ -139,8 +138,8 @@ void message_lifecycle_tests() {
   SocialNetwork social_network(&backlog);
 
   User user1("Test1", &social_network);
-  User user2("Test1", &social_network);
-  User user3("Test1", &social_network);
+  User user2("Test2", &social_network);
+  User user3("Test3", &social_network);
 
   social_network.register_user(user1, &board1);
   social_network.register_user(user2, &board2);
@@ -208,9 +207,9 @@ void message_lifecycle_tests() {
 
   Worker worker(&backlog);
 
-  worker.process(t1);
-  worker.process(t2);
-  worker.process(t3);
+  worker.process(&t1);
+  worker.process(&t2);
+  worker.process(&t3);
 
   if (board1.get_board_snapshot().count(sent) != 1 || 
       board2.get_board_snapshot().count(sent) != 1 || 
@@ -275,9 +274,9 @@ void message_lifecycle_tests() {
     return;
   }
 
-  worker.process(t1); // segmentation fault
-  worker.process(t2);
-  worker.process(t3);
+  worker.process(&t1);
+  worker.process(&t2);
+  worker.process(&t3);
 
   if (board1.get_board_snapshot().size() != 0 || 
       board2.get_board_snapshot().size() != 0 || 
@@ -289,10 +288,8 @@ void message_lifecycle_tests() {
   std::cout << "Message lifecycle tests passed!\n";
 }
 
-
 int main() {
   user_tests();
-  worker_tests();
   message_tests();
   task_tests();
   registration_tests();

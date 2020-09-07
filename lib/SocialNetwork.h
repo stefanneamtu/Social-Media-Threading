@@ -14,7 +14,7 @@ class User;
 class SocialNetwork {
   private:
     Backlog *edits_backlog;
-    std::vector<Board*> boards{std::vector<Board*>(1000, NULL)};
+    std::vector<Board*> boards{std::vector<Board*>(10000, NULL)};
     std::vector<User> users;
 
   public:

@@ -17,7 +17,7 @@ enum Command {
 class Task {
 
   private:
-    static std::atomic_int next_id;
+    static std::atomic_int next_task_id;
     Command command;
     int id;
     Board *board;

@@ -1,8 +1,6 @@
 #include "Backlog.h"
 
-Backlog::Backlog() {
-  this->backlog = SequentialSet<Task>();
-}
+Backlog::Backlog() {}
 
 Backlog::Backlog(const Backlog &backlog) {
   this->backlog = backlog.backlog;

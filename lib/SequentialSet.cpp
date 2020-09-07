@@ -2,7 +2,7 @@
 
 template <typename E>
 SequentialSet<E>::SequentialSet(){
-  size = 0;
+  size.store(0, std::memory_order_relaxed);
   this->tail = new Node<E>(INT_MAX, nullptr);
   this->head = new Node<E>(INT_MIN, tail);
 }
@@ -21,7 +21,7 @@ std::pair<Node<E>*, Node<E>*> SequentialSet<E>::find(int key) {
 
 template <typename E>
 int SequentialSet<E>::get_size() {
-  return size;
+  return size.load(std::memory_order_relaxed);
 }
 
 template <typename E>

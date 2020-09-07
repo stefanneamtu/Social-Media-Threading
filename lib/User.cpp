@@ -1,18 +1,18 @@
 #include "User.h"
 #include "SocialNetwork.h"
 
-std::atomic_int User::next_id = 0;
+std::atomic_int User::next_user_id = 0;
 
 User::User(){}
 
 User::User(std::string name) {
   this->name = name;
-  this->id = next_id.fetch_add(1);
+  this->id = next_user_id.fetch_add(1);
 }
 
 User::User(std::string name, SocialNetwork *social_network) {
   this->name = name;
-  this->id = next_id.fetch_add(1);
+  this->id = next_user_id.fetch_add(1);
   this->social_network = social_network;
 }
 
@@ -120,4 +120,8 @@ void User::start(SocialNetwork *social_network) {
 
 void User::join() {
   thr.join();
+}
+
+void User::reset_id() {
+  next_user_id.store(0, std::memory_order_seq_cst);
 }

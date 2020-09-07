@@ -1,6 +1,6 @@
 #include "Message.h"
 
-std::atomic_int Message::next_id = 0;
+std::atomic_int Message::next_message_id = 0;
 
 Message::Message(){}
 
@@ -8,7 +8,7 @@ Message::Message(User sender, std::set<User> recipients, std::string text) {
   this->sender = sender;
   this->recipients = recipients;
   this->text = text;
-  this->id = next_id++;
+  this->id = next_message_id++;
 }
 
 User Message::get_sender() {

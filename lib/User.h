@@ -14,7 +14,7 @@ class SocialNetwork;
 
 class User {
   private:
-    static std::atomic_int next_id;
+    static std::atomic_int next_user_id;
     std::thread thr;
     int id;
     std::string name;
@@ -37,6 +37,7 @@ class User {
     void run(SocialNetwork *social_network);
     void start(SocialNetwork *social_network);
     void join();
+    static void reset_id(); // for testing purposes
 };
 
 

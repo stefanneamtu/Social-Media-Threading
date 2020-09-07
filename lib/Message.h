@@ -12,7 +12,7 @@
 class Message {
 
   private:
-    static std::atomic_int next_id;
+    static std::atomic_int next_message_id;
     User sender;
     std::set<User> recipients;
     std::string text;

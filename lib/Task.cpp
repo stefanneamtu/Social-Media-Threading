@@ -1,6 +1,6 @@
 #include "Task.h"
 
-std::atomic_int Task::next_id = 0;
+std::atomic_int Task::next_task_id = 0;
 
 Task::Task(){}
 
@@ -8,7 +8,7 @@ Task::Task(Command command, Message message, Board *board) {
   this->command = command;
   this->message = message;
   this->board = board;
-  this->id = next_id++;
+  this->id = next_task_id++;
 }
 
 Command Task::get_command() {
