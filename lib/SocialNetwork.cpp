@@ -6,9 +6,9 @@ SocialNetwork::SocialNetwork(Backlog *backlog) {
   this->edits_backlog = backlog;
 }
 
-void SocialNetwork::register_user(User user, Board *board) {
-  boards[user.hash_code()] = board;
-  users.push_back(user);
+void SocialNetwork::register_user(User *user, Board *board) {
+  boards[user->hash_code()] = board;
+  users.push_back(*user);
 }
 
 Message SocialNetwork::post_message(User sender, std::set<User> recipients, std::string text) {

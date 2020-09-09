@@ -16,6 +16,7 @@ class Worker {
 
   public:
     Worker();
+    Worker(const Worker &worker);
     Worker(Backlog *backlog);
     void run();
     void interrupt();

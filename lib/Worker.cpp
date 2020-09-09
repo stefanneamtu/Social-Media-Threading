@@ -7,6 +7,11 @@ Worker::Worker(Backlog *backlog) {
   this->interrupted = false;
 }
 
+Worker::Worker(const Worker &worker) {
+  this->backlog = worker.backlog;
+  this->interrupted = worker.interrupted;
+}
+
 void Worker::run() {
   while (!interrupted) {
     std::optional<Task> task_op = backlog->get_next_task();

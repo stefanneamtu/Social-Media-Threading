@@ -20,7 +20,7 @@ class SocialNetwork {
   public:
     SocialNetwork();
     SocialNetwork(Backlog *backlog);
-    void register_user(User user, Board *board);
+    void register_user(User *user, Board *board);
     Message post_message(User sender, std::set<User> recipients, std::string text);
     void delete_message(Message message);
     Board* user_board(User user);
