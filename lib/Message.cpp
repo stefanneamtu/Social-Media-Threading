@@ -4,18 +4,18 @@ std::atomic_int Message::next_message_id = 0;
 
 Message::Message(){}
 
-Message::Message(User sender, std::set<User> recipients, std::string text) {
+Message::Message(User* sender, std::set<User*> recipients, std::string text) {
   this->sender = sender;
   this->recipients = recipients;
   this->text = text;
   this->id = next_message_id++;
 }
 
-User Message::get_sender() {
+User* Message::get_sender() {
   return sender;
 }
 
-std::set<User> Message::get_recipients() {
+std::set<User*> Message::get_recipients() {
   return recipients;
 }
 
@@ -33,8 +33,8 @@ int Message::hash_code() const {
 
 std::ostream& Message::operator<<(std::ostream &strm) {
   strm << "Message{sender = " << sender << ", recipients = ";
-  for (User recipient:recipients) {
-    strm << recipient << ", ";
+  for (User* recipient : recipients) {
+    strm << *recipient << ", ";
   }
   strm << ", text='" << text << "', id = " << id << "}";
   return strm;

@@ -6,11 +6,11 @@ Backlog::Backlog(const Backlog &backlog) {
   this->backlog = backlog.backlog;
 }
 
-bool Backlog::add(Task task){
-  return backlog.add(task, task.get_id());
+bool Backlog::add(Task* task){
+  return backlog.add(task, task->get_id());
 }
 
-std::optional<Task> Backlog::get_next_task(){
+std::optional<Task*> Backlog::get_next_task(){
   return backlog.remove(backlog.get_head()->next->key);
 }
 

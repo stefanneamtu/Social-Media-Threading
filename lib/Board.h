@@ -8,15 +8,15 @@
 class Board {
 
   private:
-    SequentialSet<Message> board;
+    SequentialSet<Message*> board;
 
   public:
     Board();
     Board(const Board& board);
-    bool add_message(Message message);
-    bool delete_message(Message message);
+    bool add_message(Message* message);
+    bool delete_message(Message* message);
     int size();
-    std::set<Message> get_board_snapshot();
+    std::set<Message*> get_board_snapshot();
     bool operator==(void *other);
     bool operator==(const Board &board);
     bool operator!=(const Board &board);

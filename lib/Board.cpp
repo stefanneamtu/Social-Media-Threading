@@ -7,21 +7,21 @@ Board::Board(const Board &board) {
   this->board = board.board;
 }
 
-bool Board::add_message(Message message) {
-  return board.add(message, message.get_id());
+bool Board::add_message(Message* message) {
+  return board.add(message, message->get_id());
 }
 
-bool Board::delete_message(Message message) {
-  return board.remove(message.get_id()).has_value();
+bool Board::delete_message(Message* message) {
+  return board.remove(message->get_id()).has_value();
 }
 
 int Board::size() {
   return board.get_size();
 }
 
-std::set<Message> Board::get_board_snapshot() {
-  std::set<Message> snap;
-  Node<Message> *curr = board.get_head()->next;
+std::set<Message*> Board::get_board_snapshot() {
+  std::set<Message*> snap;
+  Node<Message*> *curr = board.get_head()->next;
   while (curr != board.get_tail()) {
     snap.insert(curr->elem);
     curr = curr->next;

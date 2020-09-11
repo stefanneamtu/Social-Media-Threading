@@ -4,7 +4,7 @@ std::atomic_int Task::next_task_id = 0;
 
 Task::Task(){}
 
-Task::Task(Command command, Message message, Board *board) {
+Task::Task(Command command, Message* message, Board *board) {
   this->command = command;
   this->message = message;
   this->board = board;
@@ -15,7 +15,7 @@ Command Task::get_command() {
   return command;
 }
 
-Message Task::get_message() {
+Message* Task::get_message() {
   return message;
 }
 

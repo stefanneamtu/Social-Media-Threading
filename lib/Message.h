@@ -13,16 +13,16 @@ class Message {
 
   private:
     static std::atomic_int next_message_id;
-    User sender;
-    std::set<User> recipients;
+    User* sender;
+    std::set<User*> recipients;
     std::string text;
     int id;
 
   public:
     Message();
-    Message(User sender, std::set<User> recipients, std::string text);
-    User get_sender();
-    std::set<User> get_recipients();
+    Message(User* sender, std::set<User*> recipients, std::string text);
+    User* get_sender();
+    std::set<User*> get_recipients();
     std :: string get_text();
     int get_id() const;
     int hash_code() const;
