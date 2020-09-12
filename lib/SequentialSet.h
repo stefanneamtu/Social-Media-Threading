@@ -25,6 +25,7 @@ class SequentialSet {
 
   public:
     SequentialSet();
+    ~SequentialSet();
     std::pair<Node<E>*, Node<E>*> find(int key);
     int get_size();
     Node<E>* get_head() const;

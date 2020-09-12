@@ -26,7 +26,7 @@ int main() {
   }
   std::cout << 2 << std::endl;
 
-  const int users_no = 100;
+  const int users_no = 10;
   std::vector<User*> users;
   for (int i = 0; i < users_no; ++i) {
     users.push_back(new User("Simulation"));
@@ -49,6 +49,19 @@ int main() {
     worker->join();
   }
   std::cout << 6 << std::endl;
+
+  for (User* user : users) {
+    social_network->user_board(user)->clear_board();
+    delete(user);
+  }
+
+  for (Worker* worker : workers) {
+    delete(worker);
+  }
+
+  backlog->clear_backlog();
+  delete(backlog);
+  delete(social_network);
 
   return 0;
 }

@@ -7,6 +7,17 @@ SequentialSet<E>::SequentialSet(){
   this->head = new Node<E>(INT_MIN, tail);
 }
 
+template<typename E>
+SequentialSet<E>::~SequentialSet() {
+  Node<E>* curr = head;
+  while (curr != tail) {
+    Node<E>* next = curr->next;
+    delete(curr);
+    curr = next;
+  }
+  delete(tail);
+}
+
 template <typename E>
 std::pair<Node<E>*, Node<E>*> SequentialSet<E>::find(int key) {
   Node<E> *pred;
@@ -41,11 +52,11 @@ bool SequentialSet<E>::contains(int key) {
 
 template <typename E>
 bool SequentialSet<E>::add(E elem, int key) {
-  Node<E> *node = new Node(elem, key);
   std::pair<Node<E>*, Node<E>*> where = find(key);
   if (where.second->key == key) {
     return false;
   }
+  Node<E> *node = new Node(elem, key);
   node->next = where.second;
   where.first->next = node;
   ++size;
@@ -60,7 +71,9 @@ std::optional<E> SequentialSet<E>::remove(int key) {
   }
   where.first->next = where.second->next;
   --size;
-  return where.second->elem;
+  E elem = where.second->elem;
+  delete(where.second);
+  return elem;
 }
 
 template <typename E>

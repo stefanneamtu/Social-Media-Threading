@@ -1,20 +1,26 @@
 #ifndef SOCIALMEDIATHREADING_BACKLOG_H
 #define SOCIALMEDIATHREADING_BACKLOG_H
 
+#include <thread>
+#include <mutex>
+
 #include "Task.h"
 #include "SequentialSet.h"
 
 class Backlog {
 
   private:
+    std::mutex m;
     SequentialSet<Task*> backlog;
 
   public:
     Backlog();
+    ~Backlog();
     Backlog(const Backlog &backlog);
     bool add(Task* task);
     std::optional<Task*> get_next_task();
     int number_of_tasks_left();
+    void clear_backlog();
 
 
 };

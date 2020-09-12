@@ -102,6 +102,10 @@ void message_tests() {
   } else {
     std::cout << "Message clone test failed!\n";
   }
+
+  for (User* user : recipients) {
+    delete(user);
+  }
 }
 
 void task_tests() {
@@ -284,6 +288,8 @@ void message_lifecycle_tests() {
     std::cout << "Messages were not removed to the board!\n";
     return;
   }
+
+  delete(sent);
 
   std::cout << "Message lifecycle tests passed!\n";
 }

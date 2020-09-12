@@ -74,11 +74,13 @@ bool User::operator<(const User &other) const {
 
 void User::run(SocialNetwork *social_network) {
   srand(time(NULL));
-  while(true) {
+  int i = 0;
+  while(i < 5) {
     // 10% chance for the user to exit
     if (rand()% 10 == 0) {
       break;
     }
+    ++i;
 
     std::vector<User*> users = social_network->get_users(); // TODO
 

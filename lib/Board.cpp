@@ -3,15 +3,28 @@
 
 Board::Board(){}
 
+Board::~Board() {
+  //std::unique_lock<std::mutex> lock(m);
+  //Node<Message*> *curr = board.get_head()->next;
+  //while (curr != board.get_tail()) {
+  //  Message *message = curr->elem;
+  //  delete(message);
+  //  curr = curr->next;
+  //}
+}
+
 Board::Board(const Board &board) {
+  std::unique_lock<std::mutex> lock(m);
   this->board = board.board;
 }
 
 bool Board::add_message(Message* message) {
+  std::unique_lock<std::mutex> lock(m);
   return board.add(message, message->get_id());
 }
 
 bool Board::delete_message(Message* message) {
+  std::unique_lock<std::mutex> lock(m);
   return board.remove(message->get_id()).has_value();
 }
 
@@ -30,6 +43,7 @@ std::set<Message*> Board::get_board_snapshot() {
 }
 
 bool Board::operator==(void *other) {
+  std::unique_lock<std::mutex> lock(m);
   if (this == other) {
     return true;
   }
@@ -50,7 +64,17 @@ bool Board::operator!=(const Board &board) {
 }
 
 Board& Board::operator=(const Board &board) {
+  std::unique_lock<std::mutex> lock(m);
   this->board = board.board;
   return *this;
+}
+
+void Board::clear_board() {
+  Node<Message*> *curr = board.get_head()->next;
+  while (curr != board.get_tail()) {
+    Message *message = curr->elem;
+    delete(message);
+    curr = curr->next;
+  }
 }
 

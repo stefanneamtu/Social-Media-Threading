@@ -31,9 +31,12 @@ void Worker::interrupt() {
 void Worker::process(Task *task) {
   if (task->get_command() == POST) {
     task->get_board()->add_message(task->get_message());
-  } else if (!task->get_board()->delete_message(task->get_message())) {
+  } else if (task->get_board()->delete_message(task->get_message())) {
+    //delete(task->get_message());
+  } else {
     backlog->add(new Task(task->get_command(), task->get_message(), task->get_board()));
   }
+  delete(task);
 }
 
 void Worker::start() {

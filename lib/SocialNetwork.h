@@ -5,6 +5,7 @@
 #include <set>
 #include <utility>
 #include <assert.h>
+#include <mutex>
 
 #include "Message.h"
 #include "Board.h"
@@ -13,6 +14,7 @@ class User;
 
 class SocialNetwork {
   private:
+    std::mutex m;
     Backlog *edits_backlog;
     std::vector<Board*> boards{std::vector<Board*>(10000, NULL)};
     std::vector<User*> users;
