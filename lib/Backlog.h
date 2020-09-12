@@ -16,7 +16,8 @@ class Backlog {
   public:
     Backlog();
     ~Backlog();
-    Backlog(const Backlog &backlog);
+    //Backlog(const Backlog &backlog);
+    int size();
     bool add(Task* task);
     std::optional<Task*> get_next_task();
     int number_of_tasks_left();

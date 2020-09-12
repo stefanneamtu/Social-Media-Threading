@@ -38,7 +38,7 @@ class SequentialSet {
 };
 
 template class SequentialSet<int>;
-template class SequentialSet<Message*>;
+template class SequentialSet<Message>;
 template class SequentialSet<Task*>;
 template class SequentialSet<std::pair<User, Board>>;
 

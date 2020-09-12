@@ -18,23 +18,24 @@ Board::Board(const Board &board) {
   this->board = board.board;
 }
 
-bool Board::add_message(Message* message) {
+bool Board::add_message(Message message) {
   std::unique_lock<std::mutex> lock(m);
-  return board.add(message, message->get_id());
+  return board.add(message, message.get_id());
 }
 
-bool Board::delete_message(Message* message) {
+bool Board::delete_message(Message message) {
   std::unique_lock<std::mutex> lock(m);
-  return board.remove(message->get_id()).has_value();
+  return board.remove(message.get_id()).has_value();
 }
 
 int Board::size() {
   return board.get_size();
 }
 
-std::set<Message*> Board::get_board_snapshot() {
-  std::set<Message*> snap;
-  Node<Message*> *curr = board.get_head()->next;
+std::set<Message> Board::get_board_snapshot() {
+  std::unique_lock<std::mutex> lock(m);
+  std::set<Message> snap;
+  Node<Message> *curr = board.get_head()->next;
   while (curr != board.get_tail()) {
     snap.insert(curr->elem);
     curr = curr->next;
@@ -70,11 +71,11 @@ Board& Board::operator=(const Board &board) {
 }
 
 void Board::clear_board() {
-  Node<Message*> *curr = board.get_head()->next;
-  while (curr != board.get_tail()) {
-    Message *message = curr->elem;
-    delete(message);
-    curr = curr->next;
-  }
+  //Node<Message> *curr = board.get_head()->next;
+  //while (curr != board.get_tail()) {
+  //  Message *message = curr->elem;
+  //  delete(message);
+  //  curr = curr->next;
+  //}
 }
 

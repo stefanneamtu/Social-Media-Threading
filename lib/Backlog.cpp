@@ -12,9 +12,13 @@ Backlog::~Backlog() {
   //}
 }
 
-Backlog::Backlog(const Backlog &backlog) {
-  std::unique_lock<std::mutex> lock(m);
-  this->backlog = backlog.backlog;
+//Backlog::Backlog(const Backlog &backlog) {
+//  std::unique_lock<std::mutex> lock(m);
+//  this->backlog = backlog.backlog;
+//}
+
+int Backlog::size() {
+  return backlog.get_size();
 }
 
 bool Backlog::add(Task* task){

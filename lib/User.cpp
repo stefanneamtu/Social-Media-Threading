@@ -94,11 +94,11 @@ void User::run(SocialNetwork *social_network) {
     std::string msg = "Message";
     social_network->post_message(this, picked_users, msg);
 
-    std::set<Message*> ms = social_network->user_board(this)->get_board_snapshot();
-    std::vector<Message*> snap(ms.begin(), ms.end());
-    std::vector<Message*> filtered_snap;
-    for (Message* m : snap) {
-      if (m->get_sender()->get_id() != this->get_id()) {
+    std::set<Message> ms = social_network->user_board(this)->get_board_snapshot();
+    std::vector<Message> snap(ms.begin(), ms.end());
+    std::vector<Message> filtered_snap;
+    for (Message m : snap) {
+      if (m.get_sender()->get_id() != this->get_id()) {
         filtered_snap.push_back(m);
       }
     }
@@ -111,9 +111,9 @@ void User::run(SocialNetwork *social_network) {
     picks = rand() % filtered_snap.size();
 
     for (int i = 0; i < picks; ++i) {
-      if (!sent[filtered_snap[i]->hash_code()]) {
+      if (!sent[filtered_snap[i].hash_code()]) {
         social_network->delete_message(filtered_snap[i]); // TODO
-        sent[filtered_snap[i]->hash_code()] = true;
+        sent[filtered_snap[i].hash_code()] = true;
       }
     }
   }

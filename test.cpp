@@ -112,10 +112,10 @@ void task_tests() {
   Message message;
   Command command = POST;
   Board board;
-  Task(command, &message, &board);
-  Task(command, &message, &board);
-  Task(command, &message, &board);
-  Task task = Task(command, &message, &board);
+  Task(command, message, &board);
+  Task(command, message, &board);
+  Task(command, message, &board);
+  Task task = Task(command, message, &board);
 
   if (task.get_id() != 3) {
     std::cout << "Task id test failed!\n";
@@ -153,7 +153,7 @@ void message_lifecycle_tests() {
   std::set<User*> recipients;
   recipients.insert(&user2);
   recipients.insert(&user3);
-  Message* sent = social_network.post_message(&user1, recipients, "Message 1");
+  Message sent = social_network.post_message(&user1, recipients, "Message 1");
 
   if (backlog.number_of_tasks_left() != 3) {
     std::cout << "Incorrect number of tasks in the backlog!\n";
@@ -179,7 +179,7 @@ void message_lifecycle_tests() {
   target_boards.insert(&board2);
   target_boards.insert(&board3);
 
-  if (t1->get_message()->get_id() != sent->get_id() || t1->get_command() != POST) {
+  if (t1->get_message().get_id() != sent.get_id() || t1->get_command() != POST) {
     std::cout << "Task registration failure!\n";
     return;
   }
@@ -189,7 +189,7 @@ void message_lifecycle_tests() {
     return;
   }
   
-  if (t2->get_message()->get_id() != sent->get_id() || t2->get_command() != POST) {
+  if (t2->get_message().get_id() != sent.get_id() || t2->get_command() != POST) {
     std::cout << "Task registration failure!\n";
     return;
   }
@@ -199,7 +199,7 @@ void message_lifecycle_tests() {
     return;
   }
 
-  if (t3->get_message()->get_id() != sent->get_id() || t3->get_command() != POST) {
+  if (t3->get_message().get_id() != sent.get_id() || t3->get_command() != POST) {
     std::cout << "Task registration failure!\n";
     return;
   }
@@ -248,7 +248,7 @@ void message_lifecycle_tests() {
   target_boards.insert(&board2);
   target_boards.insert(&board3);
 
-  if (t1->get_message()->get_id() != sent->get_id() || t1->get_command() != DELETE) {
+  if (t1->get_message().get_id() != sent.get_id() || t1->get_command() != DELETE) {
     std::cout << "Task registration failure!\n";
     return;
   }
@@ -258,7 +258,7 @@ void message_lifecycle_tests() {
     return;
   }
   
-  if (t2->get_message()->get_id() != sent->get_id() || t2->get_command() != DELETE) {
+  if (t2->get_message().get_id() != sent.get_id() || t2->get_command() != DELETE) {
     std::cout << "Task registration failure!\n";
     return;
   }
@@ -268,7 +268,7 @@ void message_lifecycle_tests() {
     return;
   }
 
-  if (t3->get_message()->get_id() != sent->get_id() || t3->get_command() != DELETE) {
+  if (t3->get_message().get_id() != sent.get_id() || t3->get_command() != DELETE) {
     std::cout << "Task registration failure!\n";
     return;
   }
@@ -288,8 +288,6 @@ void message_lifecycle_tests() {
     std::cout << "Messages were not removed to the board!\n";
     return;
   }
-
-  delete(sent);
 
   std::cout << "Message lifecycle tests passed!\n";
 }

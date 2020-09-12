@@ -21,13 +21,13 @@ class Task {
     Command command;
     int id;
     Board *board;
-    Message *message;
+    Message message;
 
   public:
     Task();
-    Task(Command command, Message *message, Board *board);
+    Task(Command command, Message message, Board *board);
     Command get_command();
-    Message* get_message();
+    Message get_message();
     Board* get_board();
     int get_id();
     int hash_code();

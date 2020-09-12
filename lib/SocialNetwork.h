@@ -23,8 +23,8 @@ class SocialNetwork {
     SocialNetwork();
     SocialNetwork(Backlog *backlog);
     void register_user(User *user, Board *board);
-    Message* post_message(User* sender, std::set<User*> recipients, std::string text);
-    void delete_message(Message* message);
+    Message post_message(User* sender, std::set<User*> recipients, std::string text);
+    void delete_message(Message message);
     Board* user_board(User* user);
     bool check_user_registered(User* user);
     std::vector<Board*> get_boards();
