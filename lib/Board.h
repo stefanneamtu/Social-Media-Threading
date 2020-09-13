@@ -5,13 +5,14 @@
 #include <thread>
 #include <mutex>
 
-#include "SequentialSet.h"
+//#include "SequentialSet.h"
+#include "HandOverHandSet.h"
 
 class Board {
 
   private:
     std::mutex m;
-    SequentialSet<Message> board;
+    HandOverHandSet<Message> board;
 
   public:
     Board();

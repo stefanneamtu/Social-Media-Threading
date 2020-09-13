@@ -5,13 +5,14 @@
 #include <mutex>
 
 #include "Task.h"
-#include "SequentialSet.h"
+//#include "SequentialSet.h"
+#include "HandOverHandSet.h"
 
 class Backlog {
 
   private:
     std::mutex m;
-    SequentialSet<Task*> backlog;
+    HandOverHandSet<Task*> backlog;
 
   public:
     Backlog();

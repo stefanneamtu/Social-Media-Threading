@@ -23,7 +23,7 @@ int main() {
     workers.push_back(new Worker(backlog));
   }
 
-  const int users_no = 20;
+  const int users_no = 100;
   std::vector<User*> users;
   for (int i = 0; i < users_no; ++i) {
     users.push_back(new User("Simulation"));
@@ -47,6 +47,10 @@ int main() {
 
   for (Worker* worker : workers) {
     worker->join();
+  }
+
+  for (int i = 0; i < users_no; ++i) {
+    std::cout << boards[i].size() << "\n";
   }
 
   for (User* user : users) {

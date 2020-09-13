@@ -22,17 +22,14 @@ int Backlog::size() {
 }
 
 bool Backlog::add(Task* task){
-  std::unique_lock<std::mutex> lock(m);
   return backlog.add(task, task->get_id());
 }
 
 std::optional<Task*> Backlog::get_next_task(){
-  std::unique_lock<std::mutex> lock(m);
   return backlog.remove(backlog.get_head()->next->key);
 }
 
 int Backlog::number_of_tasks_left(){
-  std::unique_lock<std::mutex> lock(m);
   return backlog.get_size();
 }
 

@@ -81,6 +81,7 @@ void User::run(SocialNetwork *social_network) {
       break;
     }
     ++i;
+    std::cout << *this << "\n";
 
     std::vector<User*> users = social_network->get_users(); // TODO
 
